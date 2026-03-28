@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew Haven - Mini Coffee Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="coffee-steam">
+            <i class="fas fa-coffee"></i>
+        </div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-coffee"></i> Brew Haven</h2>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#menu" class="nav-link"><i class="fas fa-utensils"></i> Menu</a></li>
+                <li><a href="#cart" class="nav-link" id="cartLink"><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)</a></li>
+                <li><a href="#offers" class="nav-link"><i class="fas fa-tags"></i> Offers</a></li>
+                <li><a href="#about" class="nav-link"><i class="fas fa-heart"></i> About</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="search-toggle" id="searchToggle"><i class="fas fa-search"></i></button>
+                <div class="search-box" id="searchBox">
+                    <input type="text" id="searchInput" placeholder="Search coffee...">
+                    <button class="clear-search" id="clearSearch"><i class="fas fa-times"></i></button>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="sun"><i class="fas fa-sun"></i></span>
+                    <span class="moon"><i class="fas fa-moon"></i></span>
+                </button>
+            </div>
+            <div class="nav-toggle" id="mobileMenu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Freshly Brewed Daily</div>
+            <h1 class="hero-title">Welcome to <span class="highlight">Brew Haven</span></h1>
+            <p class="hero-subtitle">Discover the perfect blend of artisanal coffee & cozy vibes ☕✨</p>
+            <div class="hero-buttons">
+                <button class="cta-button primary" onclick="scrollToMenu()">
+                    <i class="fas fa-utensils"></i> View Menu
+                </button>
+                <button class="cta-button secondary" onclick="scrollToOffers()">
+                    <i class="fas fa-tags"></i> Special Offers
+                </button>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        <div class="floating-cups">
+            <div class="cup cup1"><i class="fas fa-coffee"></i></div>
+            <div class="cup cup2"><i class="fas fa-coffee"></i></div>
+            <div class="cup cup3"><i class="fas fa-coffee"></i></div>
+        </div>
+    </section>
+
+    <!-- Special Offers Section -->
+    <section id="offers" class="offers-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tags"></i> Special Offers</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-icon">🥤</div>
+                    <h3>Combo Deal</h3>
+                    <p>Coffee + Pastry</p>
+                    <div class="offer-price"><span class="old-price">$8.50</span> <span class="new-price">$6.99</span></div>
+                    <button class="offer-btn" onclick="addComboDeal()">Add Combo</button>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">⭐</div>
+                    <h3>Loyalty Points</h3>
+                    <p>Buy 9, Get 1 Free!</p>
+                    <div class="loyalty-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="loyaltyProgress" style="width: 40%"></div>
+                        </div>
+                        <span id="loyaltyText">4/9 coffees</span>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">⚡</div>
+                    <h3>Happy Hour</h3>
+                    <p>20% OFF All Drinks (3-5 PM)</p>
+                    <div class="happy-hour-status" id="happyHourStatus">Checking...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-coffee"></i> Our Menu</h2>
+                <div class="menu-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="hot">Hot Drinks</button>
+                    <button class="filter-btn" data-filter="cold">Cold Drinks</button>
+                    <button class="filter-btn" data-filter="specialty">Specialty</button>
+                </div>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-star"></i> What Our Customers Say</h2>
+            <div class="testimonials-slider" id="testimonialsSlider"></div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-actions">
+            <div class="promo-code">
+                <input type="text" id="promoCode" placeholder="Enter promo code">
+                <button onclick="applyPromo()">Apply</button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div>Subtotal: $<span id="cartSubtotal">0.00</span></div>
+                <div>Discount: $<span id="cartDiscount">$0.00</span></div>
+                <div class="total-price">Total: $<span id="cartTotal">0.00</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="clear-cart-btn" onclick="clearCart()"><i class="fas fa-trash"></i> Clear Cart</button>
+                <button class="checkout-btn" onclick="checkout()">
+                    <i class="fas fa-credit-card"></i> Checkout $<span id="finalTotal">0.00</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image" id="modalImage"></div>
+                <div class="modal-info">
+                    <div class="modal-price" id="modalPrice"></div>
+                    <div class="modal-description" id="modalDesc"></div>
+                    <div class="quantity-selector">
+                        <button type="button" onclick="changeQuantity(-1)">-</button>
+                        <span id="modalQuantity">1</span>
+                        <button type="button" onclick="changeQuantity(1)">+</button>
+                    </div>
+                    <button class="add-cart-modal" id="addCartModalBtn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-heart"></i> About Brew Haven</h2>
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-coffee" style="font-size: 4rem;"></i>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <p>Established in 2023, Brew Haven is more than just a coffee shop—it's a community gathering place where locals and travelers come to savor expertly crafted beverages.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="5000">0</span>
+                            <span class="stat-label">Cups Served</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="250">0</span>
+                            <span class="stat-label">Happy Customers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="25">0</span>
+                            <span class="stat-label">Coffee Varieties</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>123 Coffee St, Coimbatore<br>Tamil Nadu, India</div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>+91 98765 43210</div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>Mon-Sat: 7AM-9PM<br>Sun: 8AM-8PM</div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
